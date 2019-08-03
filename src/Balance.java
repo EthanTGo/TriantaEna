@@ -1,4 +1,3 @@
-package specific;
 
 public class Balance {
   private int money;

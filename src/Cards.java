@@ -1,4 +1,3 @@
-package specific;
 
 public class Cards {
   private int value;

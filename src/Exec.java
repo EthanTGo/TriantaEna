@@ -1,5 +1,3 @@
-package specific;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
@@ -13,7 +11,7 @@ public class Exec {
       while(keepPlaying){
         System.out.println("Welcome! Lets play Black Jack!");
         //initalize deck and dealer and game
-        BlackJack game = new BlackJack();
+        Trianta game = new Trianta();
         //initalize player and balance
         game.createPlayer();
         System.out.println("Player will start with a balance of $1000");
