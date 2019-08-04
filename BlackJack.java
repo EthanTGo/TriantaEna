@@ -17,6 +17,8 @@ public class BlackJack {
 		this.deck = new Deck();
 		this.dealer = new Dealer();
 	}
+	
+	///check
 
 	public void playGame() {
 		// startGame();
