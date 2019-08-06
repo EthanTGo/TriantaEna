@@ -7,8 +7,10 @@ public class Cards {
 
   public Cards (int i){ //initializer of cards
     // (A) 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, (J) 11, (Q) 12, (K) 13,
-        if(i== 1) { //Ace Value
-          Avalue = 0;
+        if(i== 1) { //Ace Value 1 or 11
+         // If the hand consists of one Ace, the player can choose to count it as a 1 or an 11. If the hand
+         // consists of more than one Ace, only one Ace can count as 1
+          value = 1;
           id = "Ace";
         } else if(i < 10){
           value = i;

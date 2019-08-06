@@ -9,13 +9,12 @@ public class Exec {
 
     public static void main(String[] args) {
       while(keepPlaying){
-        System.out.println("Welcome! Lets play Black Jack!");
+        System.out.println("Welcome! Lets play Tritana Ena!");
         //initalize deck and dealer and game
         Trianta game = new Trianta();
         //initalize player and balance
-        game.createPlayer();
-        System.out.println("Player will start with a balance of $1000");
-        game.player1.balance = new Balance(1000);
+        game.createBanker(); //initialize Banker
+        game.createPlayers(); //initialize Players
         System.out.println("Let's start Playing");
         game.playGame();
         //after initial game ends, ask if they want to continue?

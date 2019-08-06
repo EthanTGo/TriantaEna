@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Random;
@@ -9,6 +10,7 @@ public class Players {
 	private Hand hand;
 	private boolean current_banker = false;
 	private boolean still_playing = true;
+	private int current_bet = 0;
 
 	public Players(String name) {
 		this.name = name;
@@ -93,6 +95,42 @@ public class Players {
 
 	public int getBalance() {
 		return balance.getMoney();
+	}
+	public void getPlayersInitCard(Deck input) { // use to get dealer's inital hand (add 2 cards)
+      Random rand = new Random();
+      int random = rand.nextInt(input.sizeDeck());
+      Cards a = input.getCard(random);
+      input.removeCard(random);
+      hand = new Hand();
+      hand.add(a);
+      System.out.println(name + " your initial card is a "+ a.getId() + "! (This card is only known to you)"); 
+  }
+	public void getBankerInitCard(Deck input) {
+	  Random rand = new Random();
+      int random = rand.nextInt(input.sizeDeck());
+      Cards a = input.getCard(random);
+      input.removeCard(random);
+      hand = new Hand();
+      hand.add(a);
+      System.out.println("The banker's card is a "+ a.getId() + "! (Known to all players)");
+	}
+	public void firstBet() {
+	  System.out.println(name + " based on your inital hand, do you want: 1. Bet 2. Fold");
+	  Scanner scan = new Scanner(System.in);
+	  int choice = scan.nextInt();
+	  switch(choice) {
+	    case 1:
+	      System.out.println("You have selected to place a bet! How much would you like to bet?");
+	      System.out.println("Note: your current balance is " + this.balance.getMoney());
+	      int bet = scan.nextInt();
+	      current_bet = bet;
+	      this.balance.decreaseBalance(bet);
+	      System.out.println("You have placed a bet of "+ current_bet);
+	      System.out.println("Note: your balance now is " + this.balance.getMoney());
+	      break;
+	    case 2: // if a player has folded, then there bet will be zero and we can skip over them
+	      break;
+	  }
 	}
 
 }

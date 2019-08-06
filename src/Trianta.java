@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Trianta {
@@ -12,36 +13,50 @@ public class Trianta {
 		this.deck = new Deck();
 		//Initialize Players + Dealers	
 	}
+	public void createBanker() {
+	  Scanner scan = new Scanner(System.in);
+      System.out.println("Banker, please enter your name:");
+      String banker_name = scan.nextLine();
+      this.banker = new Players(banker_name, true);
+	}
 	
-	public void createPlayer() { // initialize player and its balance
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Banker, please enter your name:");
-		String banker_name = scan.nextLine();
-		this.banker = new Players(banker_name, true);
-		
+	public void createPlayers() { // initialize player and its balance
+	    Scanner scan = new Scanner(System.in);
 		System.out.println("Enter number of Players");
 		int num_players = scan.nextInt();
 		System.out.println("Enter the initial balance for all Players");
-		int balance = -1;
-		while(balance < 0) {
-			balance = scan.nextInt();
-		}
-		
+		int balance = scan.nextInt();
 		for(int i = 0; i < num_players; i++) {
-			System.out.println("enter your name: " + "Player " + (i+1));
-			String name = scan.nextLine();
+		    int x = i;
+		    System.out.println("Player " + (x+1));
+			System.out.println("enter your name: ");
+			String name = scan.next();
 			this.players_in_game.add(new Players(name,balance));
 		}
-		
 		banker.initalizeBalance(3 * balance);
-
+		System.out.println("Banker's Starting balance is "+ banker.getBalance());
 	}
 	
 	
 	public void playGame() {
+	    Deck d = new Deck();
 		round_still_in_progress = true; 
-		while (round_still_in_progress) {// until we have player is out of money or wants to cashout
-			
+		while (round_still_in_progress) { // until we have player is out of money or wants to cashout
+		  Iterator iter = players_in_game.iterator();
+		  while(iter.hasNext()) { //goes thru one round
+		    //Deal one card to each Player
+		    Players current = (Players) iter.next();
+		    current.getPlayersInitCard(d);
+		  }
+		  banker.getBankerInitCard(d);
+		  //Get Player initial bets
+		  Iterator ite = players_in_game.iterator();
+		  while(ite.hasNext()) { //place initial bets... if player chooses fold, there bet will be zero
+            Players current = (Players) ite.next();
+            current.firstBet();
+          }
+		  //ToDO: each player will now receive two cards face up and one card face down
+		  
 		}
 	}
 	
