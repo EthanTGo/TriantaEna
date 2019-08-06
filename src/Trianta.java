@@ -55,9 +55,26 @@ public class Trianta {
             Players current = (Players) ite.next();
             current.firstBet();
           }
-		  //ToDO: each player will now receive two cards face up and one card face down
-		  
+		  // each player will now receive two cards face up and one card face down
+          Iterator it = players_in_game.iterator();
+          while(it.hasNext()) {
+            Players current = (Players) it.next();
+            if(current.getCurrentBet() != 0) {
+              current.newCards(d);
+            }
+          }
+          //Time for bets round two
+          Iterator i = players_in_game.iterator();
+          while(i.hasNext()) { 
+            Players current = (Players) i.next();
+            if(current.getCurrentBet() != 0) { //
+              Cards bankerCard = banker.getHand().cards_in_hand.get(0);
+              System.out.println("The Banker's card is a " + bankerCard.getId());
+              current.secondBets(d);
+            }
+          }
 		}
+          
 	}
 	
 	public void askPlayers() {

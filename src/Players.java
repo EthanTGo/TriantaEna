@@ -60,6 +60,9 @@ public class Players {
 	public String getName() {
 		return name;
 	}
+	public int getCurrentBet() {
+	  return current_bet;
+	}
 	
 	public boolean getCurrent_Banker() {
 		return this.current_banker;
@@ -131,6 +134,35 @@ public class Players {
 	    case 2: // if a player has folded, then there bet will be zero and we can skip over them
 	      break;
 	  }
+	}
+	
+	// each player will now receive two cards face up and one card face down
+	public void newCards(Deck input) {
+	  Random rand = new Random();
+	  //card one (face up)
+      int random = rand.nextInt(input.sizeDeck());
+      Cards one = input.getCard(random);
+      hand.add(one);
+      input.removeCard(random);
+      //card two (face up)
+      int ran = rand.nextInt(input.sizeDeck());
+      Cards two = input.getCard(ran);
+      hand.add(two);
+      input.removeCard(ran);
+      
+      System.out.println(name + " you have recieved two cards: " + one.id + " and " + two.id );
+      hand.printPlayersHandWithHiddenCard();
+	}
+	
+	public void secondBets(Deck input) {
+	  System.out.println(name + " it is your turn to place a bet!");
+	  System.out.println("Your Current hand's score is " + hand.score);
+	  System.out.println("Do you want to 1. Hit or 2. Stand ?");
+	  Scanner scan = new Scanner(System.in);
+	  int choice =  scan.nextInt();
+	  
+	  
+	  
 	}
 
 }
