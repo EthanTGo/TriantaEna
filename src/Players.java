@@ -129,6 +129,9 @@ public class Players {
 	      System.out.println("You have selected to place a bet! How much would you like to bet?");
 	      System.out.println("Note: your current balance is " + this.balance.getMoney());
 	      int bet = scan.nextInt();
+	      while(bet > balance.getMoney()) {
+	    	  System.out.println("That's more than what you have");
+	      }
 	      current_bet = bet;
 	      this.balance.decreaseBalance(bet);
 	      System.out.println("You have placed a bet of "+ current_bet);
