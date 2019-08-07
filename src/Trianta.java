@@ -91,6 +91,7 @@ public class Trianta {
             Players current = (Players) y.next();
             if(current.getCurrentBet() != 0) { //
               System.out.println(current.getName() + "based on your score of " + current.getHand().score);
+              System.out.println("debug: current score "+ current.getHand().score + " and banker score "+ banker.getHand().score);
               if(current.getHand().score > banker.getHand().score) { //Player wins
                 System.out.println("Your score is higher than the bankers! You have won!");
                 int Bvalue = -1 * current.getCurrentBet();
@@ -100,7 +101,6 @@ public class Trianta {
                 System.out.println("You have won "+ current.getCurrentBet());
                 current.changeCurrentBet(0);
                 System.out.println("Your new balance is "+ current.getBalance());
-                System.out.println("The Banker has lost " + banker.getCurrentBet());
                 System.out.println("The Banker's new balance is " + banker.getBalance());
                 System.out.println("\n");
               } else { //Banker wins
@@ -110,7 +110,6 @@ public class Trianta {
                 System.out.println("You have lost "+ current.getCurrentBet());
                 current.changeCurrentBet(0);
                 System.out.println("Your balance is "+ current.getBalance());
-                System.out.println("The Banker has won " + banker.getCurrentBet());
                 System.out.println("The Banker's new balance is " + banker.getBalance());
                 System.out.println("\n");
               }
@@ -125,7 +124,7 @@ public class Trianta {
           //remove players with no balance
           Iterator c = players_in_game.iterator();
           while(c.hasNext()) {
-            Players current = (Players) next.next();
+            Players current = (Players) c.next();
             if(current.getBalance() == 0) {
               c.remove();
             }
