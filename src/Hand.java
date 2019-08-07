@@ -43,15 +43,18 @@ public class Hand {
 
 	public void updateScore(Cards c) {
 		int value = c.getValue();
-		if (c.id == "Ace") {
-			if (score > 11) {
-				score += 1;
-			} else {
-				score += 11;
-			}
-		} else {
-			score += value;
-		}
+		score += value;
+	}
+	public void aceUpdateScore(Cards c) {
+	  if(cards_in_hand.contains(c)) {
+	    score += 1;
+	  } else { //1 or 11
+	    if(score > 20) { //31 
+	      score += 1;
+	    } else {
+	      score += 11;
+	    }
+	  }
 	}
 	
 	public void printHand() {
@@ -69,7 +72,7 @@ public class Hand {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Your cards are: ");
+		sb.append("Banker's cards are: ");
 		for (int i = 0; i < this.cards_in_hand.size(); i++) {
 			if (i == (this.cards_in_hand.size() - 1)) {
 				sb.append(this.cards_in_hand.get(i).getId());
@@ -217,5 +220,9 @@ public class Hand {
 	        }
 	      }
 	    }
+	}
+	public void afterHit() {
+	  
+	  
 	}
 }

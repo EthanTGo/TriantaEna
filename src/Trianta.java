@@ -63,17 +63,80 @@ public class Trianta {
               current.newCards(d);
             }
           }
-          //Time for bets round two
+          //Time for hit/stand phase 
           Iterator i = players_in_game.iterator();
           while(i.hasNext()) { 
             Players current = (Players) i.next();
             if(current.getCurrentBet() != 0) { //
               Cards bankerCard = banker.getHand().cards_in_hand.get(0);
               System.out.println("The Banker's card is a " + bankerCard.getId());
-              current.secondBets(d);
+              if(current.phaseTwo(d)) {
+                //if true, player has lost
+                int current_bet = current.getCurrentBet();
+                banker.updatebalance(current_bet); // player's bet gets added to banker's balance
+                current.changeCurrentBet(current_bet); //should decrement player's bet to zero
+              }
             }
           }
-		}
+          //add cards to banker
+          System.out.println("\n");
+          System.out.println("Cards will now be added to the Banker's hand!");
+          banker.addToBankerHand(d);
+          System.out.println("\n");
+          
+          //phase check for all remaining players 
+          Iterator y = players_in_game.iterator();
+          System.out.println("We will now compare the Banker's score to player's scores");
+          while(y.hasNext()) { 
+            Players current = (Players) y.next();
+            if(current.getCurrentBet() != 0) { //
+              System.out.println(current.getName() + "based on your score of " + current.getHand().score);
+              if(current.getHand().score > banker.getHand().score) { //Player wins
+                System.out.println("Your score is higher than the bankers! You have won!");
+                int Bvalue = -1 * current.getCurrentBet();
+                int Cvalue = 2 * current.getCurrentBet();
+                banker.updatebalance(Bvalue);
+                current.updatebalance(Cvalue);
+                System.out.println("You have won "+ current.getCurrentBet());
+                current.changeCurrentBet(0);
+                System.out.println("Your new balance is "+ current.getBalance());
+                System.out.println("The Banker has lost " + banker.getCurrentBet());
+                System.out.println("The Banker's new balance is " + banker.getBalance());
+                System.out.println("\n");
+              } else { //Banker wins
+                System.out.println("Your score is lower than the bankers! You have lost!");
+                int Bvalue = current.getCurrentBet();
+                banker.updatebalance(Bvalue);
+                System.out.println("You have lost "+ current.getCurrentBet());
+                current.changeCurrentBet(0);
+                System.out.println("Your balance is "+ current.getBalance());
+                System.out.println("The Banker has won " + banker.getCurrentBet());
+                System.out.println("The Banker's new balance is " + banker.getBalance());
+                System.out.println("\n");
+              }
+            }
+          }
+          //check if we need game should continue (ask player if they want to continue playing)
+          Iterator next = players_in_game.iterator();
+          while(next.hasNext()) {
+            Players current = (Players) next.next();
+            current.continuePlaying();
+          }
+          //remove players with no balance
+          Iterator c = players_in_game.iterator();
+          while(c.hasNext()) {
+            Players current = (Players) next.next();
+            if(current.getBalance() == 0) {
+              c.remove();
+            }
+          }
+          if(players_in_game.isEmpty()) {
+            round_still_in_progress = false;
+          }
+          if(banker.getBalance() <= 0) {
+            round_still_in_progress = false;
+          }
+         }
           
 	}
 	
