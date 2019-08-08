@@ -40,6 +40,7 @@ public class Trianta {
 	
 	public void playGame() {
 	    Deck d = new Deck();
+	    banker.resetHand();
 		round_still_in_progress = true; 
 		while (round_still_in_progress) { // until we have player is out of money or wants to cashout
 		  Iterator iter = players_in_game.iterator();

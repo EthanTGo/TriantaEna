@@ -218,6 +218,10 @@ public class Players {
         }
 	  }
 	}
+	
+	public void resetHand() {
+		this.hand = new Hand();
+	}
 	public void continuePlaying() {
 	  System.out.println(name + " your balance is " + balance.getMoney());
 	  System.out.println("Do you want to 1. cash out 2. continue playing");
