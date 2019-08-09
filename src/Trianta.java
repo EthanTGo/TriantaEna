@@ -37,12 +37,21 @@ public class Trianta {
 		System.out.println("Banker's Starting balance is "+ banker.getBalance());
 	}
 	
-	
 	public void playGame() {
+		while(this.players_in_game.size() > 0) {
+			playRound();
+		}
+	}
+	
+	
+	public void playRound() {
 	    Deck d = new Deck();
 	    banker.resetHand();
+	    for(int i = 0; i < this.players_in_game.size(); i++) {
+	    	players_in_game.get(i).resetHand();
+	    }
 		round_still_in_progress = true; 
-		while (round_still_in_progress) { // until we have player is out of money or wants to cashout
+		while (round_still_in_progress) { //for every round
 		  Iterator iter = players_in_game.iterator();
 		  while(iter.hasNext()) { //goes thru one round
 		    //Deal one card to each Player
@@ -104,7 +113,19 @@ public class Trianta {
                 System.out.println("Your new balance is "+ current.getBalance());
                 System.out.println("The Banker's new balance is " + banker.getBalance());
                 System.out.println("\n");
-              } else { //Banker wins
+              } else if(current.getHand().score < banker.getHand().score & banker.getHand().score > 31) {
+            	  System.out.println("Your score is lower than 31! You have won!");
+                  int Bvalue = -1 * current.getCurrentBet();
+                  int Cvalue = 2 * current.getCurrentBet();
+                  banker.updatebalance(Bvalue);
+                  current.updatebalance(Cvalue);
+                  System.out.println("You have won "+ current.getCurrentBet());
+                  current.changeCurrentBet(0);
+                  System.out.println("Your new balance is "+ current.getBalance());
+                  System.out.println("The Banker's new balance is " + banker.getBalance());
+                  System.out.println("\n");
+              }
+              else { //Banker wins
                 System.out.println("Your score is lower than the bankers! You have lost!");
                 int Bvalue = current.getCurrentBet();
                 banker.updatebalance(Bvalue);

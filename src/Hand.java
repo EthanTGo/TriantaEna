@@ -12,6 +12,7 @@ public class Hand {
 
 	public Hand() {
 		this.cards_in_hand = new ArrayList<Cards>();
+		this.score = 0;
 	}
 	
 	public Hand(int bet) {

@@ -16,7 +16,7 @@ public class Exec {
         game.createBanker(); //initialize Banker
         game.createPlayers(); //initialize Players
         System.out.println("Let's start Playing");
-        game.playGame();
+        game.playRound();
         //after initial game ends, ask if they want to continue?
         System.out.println("Do you want to start a new game: Yes or No");
         Scanner scan = new Scanner(System.in);
